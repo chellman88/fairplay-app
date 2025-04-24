@@ -692,6 +692,7 @@
 <body>
   <!-- Notification Element -->
   <div id="notification" class="notification"></div>
+  
   <div class="app-container">
     <!-- Welcome Screen -->
     <div id="welcome-screen" class="screen active">
@@ -769,7 +770,7 @@
       <h2>Today's Matches</h2>
       
       <div class="date-card">
-        <img src="/api/placeholder/400/320" alt="Alex">
+        <img src="https://via.placeholder.com/400x320" alt="Alex">
         <div class="date-card-content">
           <h3>Alex, 28</h3>
           <p>Passionate photographer who loves hiking and exploring new restaurants.</p>
@@ -788,7 +789,7 @@
       </div>
       
       <div class="date-card">
-        <img src="/api/placeholder/400/320" alt="Jordan">
+        <img src="https://via.placeholder.com/400x320" alt="Jordan">
         <div class="date-card-content">
           <h3>Jordan, 31</h3>
           <p>Software engineer by day, amateur chef by night. Dog lover and yoga enthusiast.</p>
@@ -969,3 +970,240 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- Script at the end for better performance -->
+  <script>
+    // Define showScreen function globally
+    function showScreen(screenId) {
+      console.log('showScreen called with: ' + screenId);
+      // Hide all screens
+      document.querySelectorAll('.screen').forEach(screen => {
+        screen.classList.remove('active');
+      });
+      
+      // Show the selected screen
+      const targetScreen = document.getElementById(screenId);
+      console.log('Target screen found:', targetScreen);
+      if (targetScreen) {
+        targetScreen.classList.add('active');
+        console.log('Screen changed to: ' + screenId);
+      } else {
+        console.error('Screen not found: ' + screenId + '. Available screens:');
+        document.querySelectorAll('.screen').forEach(screen => {
+          console.log(screen.id);
+        });
+      }
+    }
+    
+    // Define selectGender function globally
+    function selectGender(gender) {
+      console.log('selectGender called with: ' + gender);
+      const targetId = gender === 'female' ? 'echo-chat' : 'ace-chat';
+      console.log('Looking for screen with ID:', targetId);
+      const targetScreen = document.getElementById(targetId);
+      
+      if (targetScreen) {
+        console.log('Target screen found, showing it');
+        showScreen(targetId);
+      } else {
+        console.error('Target chat screen not found!');
+        // List all available screens for debugging
+        console.log('Available screens:');
+        document.querySelectorAll('.screen').forEach(screen => {
+          console.log(screen.id);
+        });
+      }
+    }
+    
+    // Enhanced sendMessage function
+    function sendMessage(bot) {
+      console.log('sendMessage called for: ' + bot);
+      const input = document.querySelector(`#${bot}-chat input`);
+      const message = input.value;
+      
+      if (message.trim() !== '') {
+        const chatContainer = document.querySelector(`#${bot}-chat .chat-container`);
+        
+        // Add user message
+        const userMessage = document.createElement('div');
+        userMessage.className = 'chat-message user';
+        userMessage.textContent = message;
+        chatContainer.appendChild(userMessage);
+        
+        // Clear input
+        input.value = '';
+        
+        // Show typing indicator
+        const typingIndicator = document.createElement('div');
+        typingIndicator.className = 'chat-message bot typing-indicator';
+        typingIndicator.innerHTML = '<span>•</span><span>•</span><span>•</span>';
+        chatContainer.appendChild(typingIndicator);
+        
+        // Scroll to bottom
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+        
+        // Generate response based on message content
+        setTimeout(() => {
+          // Remove typing indicator
+          chatContainer.removeChild(typingIndicator);
+          
+          const botMessage = document.createElement('div');
+          botMessage.className = 'chat-message bot';
+          
+          // Dynamic response generation based on message content
+          let response = '';
+          const lowercaseMsg = message.toLowerCase();
+          
+          if (bot === 'echo') {
+            if (lowercaseMsg.includes('hi') || lowercaseMsg.includes('hello') || lowercaseMsg.includes('hey')) {
+              response = "Hi there! I'm excited to help you find meaningful connections. How long have you been in the dating scene?";
+            } else if (lowercaseMsg.includes('outdoor') || lowercaseMsg.includes('hiking') || lowercaseMsg.includes('nature')) {
+              response = "I see you enjoy outdoor activities! That's great - it's actually one of the most popular interests among our users. Do you prefer solo hikes or group adventures?";
+            } else if (lowercaseMsg.includes('dog') || lowercaseMsg.includes('pet') || lowercaseMsg.includes('animal')) {
+              response = "Oh, you have pets? That's wonderful! Many users on our platform are animal lovers. Would you say being pet-friendly is a must-have for your potential matches?";
+            } else if (lowercaseMsg.includes('food') || lowercaseMsg.includes('restaurant') || lowercaseMsg.includes('cuisine')) {
+              response = "A foodie! I've noted that in your preferences. Are there any specific cuisines you particularly enjoy or would love to explore on a date?";
+            } else if (lowercaseMsg.includes('movie') || lowercaseMsg.includes('film') || lowercaseMsg.includes('show')) {
+              response = "I see you're interested in film and entertainment! That's a great conversation starter for dates. What genres do you typically enjoy watching?";
+            } else if (lowercaseMsg.includes('match') || lowercaseMsg.includes('date')) {
+              response = "I'm getting a better sense of what you're looking for in a match. Would you like to see some potential connections now based on what we've discussed?";
+            } else {
+              response = "Thanks for sharing that! The more I learn about you, the better matches I can find. Would you like to tell me about your ideal first date scenario?";
+            }
+          } else { // For Ace
+            if (lowercaseMsg.includes('hi') || lowercaseMsg.includes('hello') || lowercaseMsg.includes('hey')) {
+              response = "Hey there! Great to meet you. I'm here to help you create meaningful connections. Tell me a bit about your dating preferences?";
+            } else if (lowercaseMsg.includes('travel') || lowercaseMsg.includes('trip') || lowercaseMsg.includes('vacation')) {
+              response = "I see you enjoy traveling! That's an excellent way to connect with someone. What's been your favorite destination so far? I can look for people who share your wanderlust.";
+            } else if (lowercaseMsg.includes('music') || lowercaseMsg.includes('concert') || lowercaseMsg.includes('band')) {
+              response = "A music enthusiast! That's a great shared interest for potential matches. What genres or artists do you typically enjoy? Live music makes for excellent date opportunities.";
+            } else if (lowercaseMsg.includes('food') || lowercaseMsg.includes('restaurant') || lowercaseMsg.includes('cuisine')) {
+              response = "I notice you're interested in culinary experiences! Dining together is one of the most popular date activities. Any favorite cuisines or restaurant styles you prefer?";
+            } else if (lowercaseMsg.includes('sport') || lowercaseMsg.includes('fitness') || lowercaseMsg.includes('gym')) {
+              response = "Staying active is important to you! That's great - shared fitness activities can create strong bonds. Would you prefer someone who shares specific athletic interests?";
+            } else if (lowercaseMsg.includes('match') || lowercaseMsg.includes('date')) {
+              response = "Based on what you've shared, I think I have a good sense of what you're looking for. Would you like to see some potential matches now?";
+            } else {
+              response = "I appreciate you sharing that! Every detail helps me understand your preferences better. What qualities do you consider most important in a potential partner?";
+            }
+          }
+          
+          botMessage.textContent = response;
+          chatContainer.appendChild(botMessage);
+          
+          // If message contains "match" or this is the 3rd+ exchange, offer to show matches
+          const messageCount = chatContainer.querySelectorAll('.chat-message.user').length;
+          if (lowercaseMsg.includes('match') || lowercaseMsg.includes('yes') || messageCount >= 3) {
+            // Add "See Matches" button after a short delay
+            setTimeout(() => {
+              const matchButton = document.createElement('button');
+              matchButton.textContent = 'See Matches';
+              matchButton.className = 'glow-btn';
+              matchButton.onclick = function() {
+                showScreen('home-screen');
+              };
+              chatContainer.appendChild(matchButton);
+              
+              // Scroll to bottom
+              chatContainer.scrollTop = chatContainer.scrollHeight;
+            }, 1000);
+          }
+          
+          // Scroll to bottom
+          chatContainer.scrollTop = chatContainer.scrollHeight;
+        }, 1500); // Simulate thinking time
+      }
+    }
+    
+    // Define showTab function globally
+    function showTab(tab) {
+      console.log('showTab called with: ' + tab);
+      if (tab === 'home') {
+        showScreen('home-screen');
+      } else if (tab === 'planning') {
+        showScreen('date-planning');
+      } else if (tab === 'tokens') {
+        showScreen('tokens-screen');
+      } else if (tab === 'profile') {
+        showScreen('profile-screen');
+      }
+    }
+    
+    // Define showNotification function globally
+    function showNotification(message) {
+      console.log('showNotification called with: ' + message);
+      
+      // Get notification element
+      const notification = document.getElementById('notification');
+      
+      notification.textContent = message;
+      notification.style.display = 'block';
+      
+      setTimeout(() => {
+        notification.style.display = 'none';
+      }, 2000);
+    }
+    
+    // Helper function for email validation
+    function isValidEmail(email) {
+      const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(String(email).toLowerCase());
+    }
+    
+    // Initialize everything when the page loads
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('DOM fully loaded - initializing app');
+      
+      // Add event listeners to bot cards
+      const femaleCard = document.querySelector('.bot-card.female');
+      console.log('Found female card:', femaleCard);
+      if (femaleCard) {
+        femaleCard.addEventListener('click', function(e) {
+          e.preventDefault(); // Prevent default behavior
+          console.log('Female card clicked');
+          selectGender('female');
+        });
+      }
+      
+      const maleCard = document.querySelector('.bot-card.male');
+      console.log('Found male card:', maleCard);
+      if (maleCard) {
+        maleCard.addEventListener('click', function(e) {
+          e.preventDefault(); // Prevent default behavior
+          console.log('Male card clicked');
+          selectGender('male');
+        });
+      }
+      
+      // Add event listeners to action buttons
+      const skipButtons = document.querySelectorAll('.action-button.skip');
+      skipButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          const dateCard = this.closest('.date-card');
+          if (dateCard && dateCard.nextElementSibling && dateCard.nextElementSibling.classList.contains('date-card')) {
+            dateCard.style.display = 'none';
+            showNotification('Skipped');
+          } else {
+            showNotification('No more matches today');
+            dateCard.style.display = 'none';
+          }
+        });
+      });
+      
+      const likeButtons = document.querySelectorAll('.action-button.like');
+      likeButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          const dateCard = this.closest('.date-card');
+          if (dateCard) {
+            dateCard.style.display = 'none';
+            showNotification('Liked! We\'ll notify if you match');
+          }
+        });
+      });
+      
+      console.log('App initialized successfully');
+    });
+  </script>
+</body>
+</html>
