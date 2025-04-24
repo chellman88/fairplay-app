@@ -6,6 +6,7 @@
   <title>FairPlay Dating App</title>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <style>
+    /* Your existing CSS styles remain unchanged */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -293,6 +294,7 @@
       border-top: 1px solid rgba(255,255,255,0.05);
       position: absolute;
       bottom: 0;
+      left: 0;
       width: 100%;
       box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
     }
@@ -638,6 +640,41 @@
       transform: scale(1.1);
       color: var(--primary);
     }
+
+    /* Typing Indicator */
+    .typing-indicator {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 8px 16px !important;
+      min-width: 50px !important;
+    }
+
+    .typing-indicator span {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background-color: var(--gray);
+      border-radius: 50%;
+      animation: typing-dot 1.4s infinite ease-in-out;
+    }
+
+    .typing-indicator span:nth-child(1) {
+      animation-delay: 0s;
+    }
+
+    .typing-indicator span:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .typing-indicator span:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes typing-dot {
+      0%, 60%, 100% { transform: translateY(0); }
+      30% { transform: translateY(-4px); }
+    }
   </style>
   
   <!-- Core function defined first to avoid errors -->
@@ -669,7 +706,7 @@
       }
     }
     
-    // Define sendMessage function globally
+    // Enhanced sendMessage function
     function sendMessage(bot) {
       console.log('sendMessage called for: ' + bot);
       const input = document.querySelector(`#${bot}-chat input`);
@@ -687,34 +724,85 @@
         // Clear input
         input.value = '';
         
-        // Simulate bot response after a short delay
-        setTimeout(() => {
-          const botMessage = document.createElement('div');
-          botMessage.className = 'chat-message bot';
-          
-          if (bot === 'echo') {
-            botMessage.textContent = "I notice you mentioned " + message.split(' ').slice(-3).join(' ') + ". That's helpful to know! Would you like to see some potential matches now, or should we continue getting to know each other better?";
-          } else {
-            botMessage.textContent = "Thanks for sharing that! I'm noting your interest in " + message.split(' ').slice(-3).join(' ') + ". Would you like to see some potential matches now, or should we chat more about your preferences?";
-          }
-          
-          chatContainer.appendChild(botMessage);
-          
-          // Add "See Matches" button
-          const matchButton = document.createElement('button');
-          matchButton.textContent = 'See Matches';
-          matchButton.className = 'glow-btn';
-          matchButton.onclick = function() {
-            showScreen('home-screen');
-          };
-          chatContainer.appendChild(matchButton);
-          
-          // Scroll to bottom
-          chatContainer.scrollTop = chatContainer.scrollHeight;
-        }, 1000);
+        // Show typing indicator
+        const typingIndicator = document.createElement('div');
+        typingIndicator.className = 'chat-message bot typing-indicator';
+        typingIndicator.innerHTML = '<span>•</span><span>•</span><span>•</span>';
+        chatContainer.appendChild(typingIndicator);
         
         // Scroll to bottom
         chatContainer.scrollTop = chatContainer.scrollHeight;
+        
+        // Generate response based on message content
+        setTimeout(() => {
+          // Remove typing indicator
+          chatContainer.removeChild(typingIndicator);
+          
+          const botMessage = document.createElement('div');
+          botMessage.className = 'chat-message bot';
+          
+          // Dynamic response generation based on message content
+          let response = '';
+          const lowercaseMsg = message.toLowerCase();
+          
+          if (bot === 'echo') {
+            if (lowercaseMsg.includes('hi') || lowercaseMsg.includes('hello') || lowercaseMsg.includes('hey')) {
+              response = "Hi there! I'm excited to help you find meaningful connections. How long have you been in the dating scene?";
+            } else if (lowercaseMsg.includes('outdoor') || lowercaseMsg.includes('hiking') || lowercaseMsg.includes('nature')) {
+              response = "I see you enjoy outdoor activities! That's great - it's actually one of the most popular interests among our users. Do you prefer solo hikes or group adventures?";
+            } else if (lowercaseMsg.includes('dog') || lowercaseMsg.includes('pet') || lowercaseMsg.includes('animal')) {
+              response = "Oh, you have pets? That's wonderful! Many users on our platform are animal lovers. Would you say being pet-friendly is a must-have for your potential matches?";
+            } else if (lowercaseMsg.includes('food') || lowercaseMsg.includes('restaurant') || lowercaseMsg.includes('cuisine')) {
+              response = "A foodie! I've noted that in your preferences. Are there any specific cuisines you particularly enjoy or would love to explore on a date?";
+            } else if (lowercaseMsg.includes('movie') || lowercaseMsg.includes('film') || lowercaseMsg.includes('show')) {
+              response = "I see you're interested in film and entertainment! That's a great conversation starter for dates. What genres do you typically enjoy watching?";
+            } else if (lowercaseMsg.includes('match') || lowercaseMsg.includes('date')) {
+              response = "I'm getting a better sense of what you're looking for in a match. Would you like to see some potential connections now based on what we've discussed?";
+            } else {
+              response = "Thanks for sharing that! The more I learn about you, the better matches I can find. Would you like to tell me about your ideal first date scenario?";
+            }
+          } else { // For Ace
+            if (lowercaseMsg.includes('hi') || lowercaseMsg.includes('hello') || lowercaseMsg.includes('hey')) {
+              response = "Hey there! Great to meet you. I'm here to help you create meaningful connections. Tell me a bit about your dating preferences?";
+            } else if (lowercaseMsg.includes('travel') || lowercaseMsg.includes('trip') || lowercaseMsg.includes('vacation')) {
+              response = "I see you enjoy traveling! That's an excellent way to connect with someone. What's been your favorite destination so far? I can look for people who share your wanderlust.";
+            } else if (lowercaseMsg.includes('music') || lowercaseMsg.includes('concert') || lowercaseMsg.includes('band')) {
+              response = "A music enthusiast! That's a great shared interest for potential matches. What genres or artists do you typically enjoy? Live music makes for excellent date opportunities.";
+            } else if (lowercaseMsg.includes('food') || lowercaseMsg.includes('restaurant') || lowercaseMsg.includes('cuisine')) {
+              response = "I notice you're interested in culinary experiences! Dining together is one of the most popular date activities. Any favorite cuisines or restaurant styles you prefer?";
+            } else if (lowercaseMsg.includes('sport') || lowercaseMsg.includes('fitness') || lowercaseMsg.includes('gym')) {
+              response = "Staying active is important to you! That's great - shared fitness activities can create strong bonds. Would you prefer someone who shares specific athletic interests?";
+            } else if (lowercaseMsg.includes('match') || lowercaseMsg.includes('date')) {
+              response = "Based on what you've shared, I think I have a good sense of what you're looking for. Would you like to see some potential matches now?";
+            } else {
+              response = "I appreciate you sharing that! Every detail helps me understand your preferences better. What qualities do you consider most important in a potential partner?";
+            }
+          }
+          
+          botMessage.textContent = response;
+          chatContainer.appendChild(botMessage);
+          
+          // If message contains "match" or this is the 3rd+ exchange, offer to show matches
+          const messageCount = chatContainer.querySelectorAll('.chat-message.user').length;
+          if (lowercaseMsg.includes('match') || lowercaseMsg.includes('yes') || messageCount >= 3) {
+            // Add "See Matches" button after a short delay
+            setTimeout(() => {
+              const matchButton = document.createElement('button');
+              matchButton.textContent = 'See Matches';
+              matchButton.className = 'glow-btn';
+              matchButton.onclick = function() {
+                showScreen('home-screen');
+              };
+              chatContainer.appendChild(matchButton);
+              
+              // Scroll to bottom
+              chatContainer.scrollTop = chatContainer.scrollHeight;
+            }, 1000);
+          }
+          
+          // Scroll to bottom
+          chatContainer.scrollTop = chatContainer.scrollHeight;
+        }, 1500); // Simulate thinking time
       }
     }
     
@@ -735,7 +823,16 @@
     // Define showNotification function globally
     function showNotification(message) {
       console.log('showNotification called with: ' + message);
-      const notification = document.getElementById('notification');
+      
+      // Create notification element if it doesn't exist
+      let notification = document.getElementById('notification');
+      if (!notification) {
+        notification = document.createElement('div');
+        notification.id = 'notification';
+        notification.className = 'notification';
+        document.body.appendChild(notification);
+      }
+      
       notification.textContent = message;
       notification.style.display = 'block';
       
@@ -744,121 +841,32 @@
       }, 2000);
     }
     
-    // Define collectEmailAndProceed function globally
-    function collectEmailAndProceed(gender) {
-      console.log('collectEmailAndProceed called with: ' + gender);
-      const emailInput = document.getElementById('signup-email');
-      const email = emailInput.value.trim();
-      
-      if (email === '') {
-        // Show a notification if no email is provided
-        showNotification('Please enter your email address');
-        return;
-      }
-      
-      if (!isValidEmail(email)) {
-        showNotification('Please enter a valid email address');
-        return;
-      }
-      
-      // Store the email (would normally send to server)
-      console.log(`Email collected: ${email} for gender preference: ${gender}`);
-      localStorage.setItem('userEmail', email);
-      
-      // Show success notification
-      showNotification('Thanks for signing up!');
-      
-      // Then proceed to the appropriate chat
-      selectGender(gender);
-      
-      // Show success message in chat
-      showEmailSuccess(gender);
-    }
-    
     // Helper function for email validation
     function isValidEmail(email) {
       const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(String(email).toLowerCase());
     }
     
-    // Display email success message
-    function showEmailSuccess(gender) {
-      setTimeout(() => {
-        const chatId = gender === 'female' ? 'echo-chat' : 'ace-chat';
-        const successElement = document.querySelector(`#${chatId} .email-success`);
-        if (successElement) {
-          successElement.style.display = 'block';
-          
-          // Hide it after 5 seconds
-          setTimeout(() => {
-            successElement.style.display = 'none';
-          }, 5000);
-        }
-      }, 500);
-    }
-  </script>
-</head>
-<body>
-
-<div class="app-container">
-  <!-- Welcome Screen -->
-  <div id="welcome-screen" class="screen active">
-    <div class="content">
-      <div class="header">
-        <div class="logo">FairPlay</div>
-      </div>
-      <h1>Dating that values your effort</h1>
-      <p>FairPlay rebalances the modern dating economy by recognizing preparation effort and simplifying planning.</p>
-      <p>Our AI assistants help you find meaningful connections and plan incredible dates without the stress.</p>
-      <button class="glow-btn" onclick="showScreen('gender-select')">Get Started <i class="fas fa-arrow-right"></i></button>
-    </div>
-  </div>
-  
-  <!-- Gender Selection Screen -->
-  <div id="gender-select" class="screen">
-    <div class="header">
-      <button class="back-button" onclick="showScreen('welcome-screen')"><i class="fas fa-chevron-left"></i> Back</button>
-      <div class="logo">FairPlay</div>
-    </div>
-    <h1>Let's personalize your experience</h1>
-    <p>Join our waitlist to be first in line when we launch!</p>
-    
-    <div class="email-signup">
-      <input type="email" id="signup-email" placeholder="Your email address" class="email-input">
-      <p class="small-text">We'll notify you when the full version launches.</p>
-    </div>
-    
-    <p>Now, meet your dedicated dating assistant:</p>
-    
-    <div class="bot-card female" onclick="collectEmailAndProceed('female')">
-      <div class="bot-icon"><i class="fas fa-female"></i></div>
-      <h3>Echo</h3>
-      <p>Your dedicated assistant that recognizes the effort you put into dating prep and helps find dates who value that commitment.</p>
-    </div>
-    
-    <div class="bot-card male" onclick="collectEmailAndProceed('male')">
-      <div class="bot-icon"><i class="fas fa-male"></i></div>
-      <h3>Ace</h3>
-      <p>Your planning partner who helps create thoughtful date experiences and connects you with people who appreciate genuine effort.</p>
-    </div>
-  </div>
-  
-  <!-- Female Bot Chat -->
-  <div id="echo-chat" class="screen">
-    <div class="header">
-      <button class="back-button" onclick="showScreen('gender-select')"><i class="fas fa-chevron-left"></i> Back</button>
-      <div class="logo">FairPlay</div>
-    </div>
-    
-    <div class="email-success" style="background: rgba(39,174,96,0.1); border-radius: 8px; padding: 12px; margin-bottom: 16px; border: 1px solid rgba(39,174,96,0.2); display: none;">
-      <p style="color: #2ecc71; margin: 0;"><i class="fas fa-check-circle"></i> Thanks for joining our waitlist! We'll notify you when we launch.</p>
-    </div>
-    
-    <div class="chat-container">
-      <div class="chat-message bot">
-        Hi there! I'm Echo, your FairPlay assistant. I'm here to help you find meaningful connections while recognizing the effort you put into dating. Let's start by learning a bit about you. What are you looking for in a relationship right now?
-      </div>
+    // When DOM is fully loaded, initialize everything
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('DOM fully loaded - initializing app');
       
-      <div class="chat-message user">
-        I'm looking for someone who values quality time and enjoys outdoor activities.
-      </div>
+      // Create notification element if it doesn't exist
+      if (!document.getElementById('notification')) {
+        const notification = document.createElement('div');
+        notification.id = 'notification';
+        notification.className = 'notification';
+        document.body.appendChild(notification);
+      }
+      
+      // Update navigation for bot cards - direct navigation
+      document.querySelector('.bot-card.female').onclick = function() {
+        selectGender('female');
+      };
+      
+      document.querySelector('.bot-card.male').onclick = function() {
+        selectGender('male');
+      };
+      
+      console.log('App initialized successfully');
+    });
