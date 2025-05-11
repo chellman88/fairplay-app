@@ -544,6 +544,207 @@
       box-shadow: 0 0 0 3px rgba(255,56,92,0.1);
       outline: none;
     }
+  </style>
+</head>
+<body>
+  <!-- Notification Element -->
+  <div id="notification" class="notification"></div>
+  
+  <div class="app-container">
+    <!-- Welcome Screen -->
+    <div id="welcome-screen" class="screen active">
+      <div class="content">
+        <div class="header">
+          <div class="logo">FairPlay</div>
+        </div>
+        <h1>Find Meaningful Connections</h1>
+        <p>We're using AI to help create better dating experiences. Our AI assistants help guide you through finding compatible matches.</p>
+        
+        <h2>Choose Your Guide</h2>
+        
+        <!-- Using direct links with href to handle navigation -->
+        <a href="#" style="text-decoration: none;" onclick="document.querySelector('#echo-chat').classList.add('active'); document.querySelector('#welcome-screen').classList.remove('active'); return false;">
+          <div class="bot-card female">
+            <div class="bot-icon"><i class="fas fa-female"></i></div>
+            <h3>Echo</h3>
+            <p>A friendly guide who will help you navigate meaningful connections with empathy and insight.</p>
+          </div>
+        </a>
+        
+        <a href="#" style="text-decoration: none;" onclick="document.querySelector('#ace-chat').classList.add('active'); document.querySelector('#welcome-screen').classList.remove('active'); return false;">
+          <div class="bot-card male">
+            <div class="bot-icon"><i class="fas fa-male"></i></div>
+            <h3>Ace</h3>
+            <p>A straightforward companion who helps you cut through the noise and find quality matches.</p>
+          </div>
+        </a>
+        
+        <!-- Adding direct inline handler for the early access button -->
+        <button class="glow-btn" style="margin-top: 30px;" onclick="document.getElementById('signup-modal').classList.add('active');">Get Early Access</button>
+      </div>
+      
+      <!-- Footer with Social Links -->
+      <div class="footer">
+        <div class="social-links">
+          <a href="https://instagram.com/FairPlayDate" target="_blank" class="social-link">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="https://tiktok.com/@FairPlayDate" target="_blank" class="social-link">
+            <i class="fab fa-tiktok"></i>
+          </a>
+          <a href="https://twitter.com/FairPlayDate" target="_blank" class="social-link">
+            <i class="fab fa-twitter"></i>
+          </a>
+        </div>
+        <div class="contact-info">
+          <a href="mailto:hello@fairplaydate.com">hello@fairplaydate.com</a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Echo Chat Screen -->
+    <div id="echo-chat" class="screen">
+      <div class="header">
+        <button class="back-button" onclick="document.querySelector('#welcome-screen').classList.add('active'); document.querySelector('#echo-chat').classList.remove('active');">
+          <i class="fas fa-arrow-left"></i> Back
+        </button>
+        <div class="logo">Echo</div>
+      </div>
+      
+      <div class="chat-container">
+        <div class="chat-message bot">
+          Hi there! I'm Echo, your dating assistant. I'm here to help you find meaningful connections. What are you looking for in a partner?
+        </div>
+      </div>
+      
+      <div class="chat-input">
+        <input type="text" placeholder="Type your message..." onkeypress="if(event.key === 'Enter') sendMessage('echo')">
+        <button onclick="sendMessage('echo')"><i class="fas fa-paper-plane"></i></button>
+      </div>
+      
+      <!-- Footer with Social Links -->
+      <div class="footer">
+        <div class="social-links">
+          <a href="https://instagram.com/FairPlayDate" target="_blank" class="social-link">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="https://tiktok.com/@FairPlayDate" target="_blank" class="social-link">
+            <i class="fab fa-tiktok"></i>
+          </a>
+          <a href="https://twitter.com/FairPlayDate" target="_blank" class="social-link">
+            <i class="fab fa-twitter"></i>
+          </a>
+        </div>
+        <div class="contact-info">
+          <a href="mailto:hello@fairplaydate.com">hello@fairplaydate.com</a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Ace Chat Screen -->
+    <div id="ace-chat" class="screen">
+      <div class="header">
+        <button class="back-button" onclick="document.querySelector('#welcome-screen').classList.add('active'); document.querySelector('#ace-chat').classList.remove('active');">
+          <i class="fas fa-arrow-left"></i> Back
+        </button>
+        <div class="logo">Ace</div>
+      </div>
+      
+      <div class="chat-container">
+        <div class="chat-message bot">
+          Hey there! I'm Ace, your dating coach. I'm here to help you find quality connections. What qualities are most important to you in a match?
+        </div>
+      </div>
+      
+      <div class="chat-input">
+        <input type="text" placeholder="Type your message..." onkeypress="if(event.key === 'Enter') sendMessage('ace')">
+        <button onclick="sendMessage('ace')"><i class="fas fa-paper-plane"></i></button>
+      </div>
+      
+      <!-- Footer with Social Links -->
+      <div class="footer">
+        <div class="social-links">
+          <a href="https://instagram.com/FairPlayDate" target="_blank" class="social-link">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="https://tiktok.com/@FairPlayDate" target="_blank" class="social-link">
+            <i class="fab fa-tiktok"></i>
+          </a>
+          <a href="https://twitter.com/FairPlayDate" target="_blank" class="social-link">
+            <i class="fab fa-twitter"></i>
+          </a>
+        </div>
+        <div class="contact-info">
+          <a href="mailto:hello@fairplaydate.com">hello@fairplaydate.com</a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Home Screen -->
+    <div id="home-screen" class="screen">
+      <div class="header">
+        <div class="logo">FairPlay</div>
+      </div>
+      
+      <h2>Today's Matches</h2>
+      
+      <div class="date-card">
+        <img src="https://via.placeholder.com/400x320" alt="Alex">
+        <div class="date-card-content">
+          <h3>Alex, 28</h3>
+          <p>Passionate photographer who loves hiking and exploring new restaurants.</p>
+          
+          <div class="date-tags">
+            <span class="date-tag">Hiking</span>
+            <span class="date-tag">Photography</span>
+            <span class="date-tag">Foodie</span>
+          </div>
+          
+          <div class="action-buttons">
+            <div class="action-button skip"><i class="fas fa-times"></i></div>
+            <div class="action-button like"><i class="fas fa-heart"></i></div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="date-card">
+        <img src="https://via.placeholder.com/400x320" alt="Jordan">
+        <div class="date-card-content">
+          <h3>Jordan, 31</h3>
+          <p>Software engineer by day, amateur chef by night. Dog lover and yoga enthusiast.</p>
+          
+          <div class="date-tags">
+            <span class="date-tag">Cooking</span>
+            <span class="date-tag">Dogs</span>
+            <span class="date-tag">Yoga</span>
+          </div>
+          
+          <div class="action-buttons">
+            <div class="action-button skip"><i class="fas fa-times"></i></div>
+            <div class="action-button like"><i class="fas fa-heart"></i></div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Footer with Social Links -->
+      <div class="footer">
+        <div class="social-links">
+          <a href="https://instagram.com/FairPlayDate" target="_blank" class="social-link">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="https://tiktok.com/@FairPlayDate" target="_blank" class="social-link">
+            <i class="fab fa-tiktok"></i>
+          </a>
+          <a href="https://twitter.com/FairPlayDate" target="_blank" class="social-link">
+            <i class="fab fa-twitter"></i>
+          </a>
+        </div>
+        <div class="contact-info">
+          <a href="mailto:hello@fairplaydate.com">hello@fairplaydate.com</a>
+        </div>
+      </div>0 0 0 3px rgba(255,56,92,0.1);
+      outline: none;
+    }
 
     .email-signup {
       background: var(--surface-light);
@@ -829,221 +1030,4 @@
     
     .signup-input:focus {
       border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(255,56,92,0.1);
-      outline: none;
-    }
-  </style>
-</head>
-<body>
-  <!-- Notification Element -->
-  <div id="notification" class="notification"></div>
-  
-  <div class="app-container">
-    <!-- Welcome Screen -->
-    <div id="welcome-screen" class="screen active">
-      <div class="content">
-        <div class="header">
-          <div class="logo">FairPlay</div>
-        </div>
-        <h1>Find Meaningful Connections</h1>
-        <p>We're using AI to help create better dating experiences. Our AI assistants help guide you through finding compatible matches.</p>
-        
-        <h2>Choose Your Guide</h2>
-        
-        <!-- Using inline onclick handlers for more reliable functioning -->
-        <div class="bot-card female" onclick="selectGender('female')">
-          <div class="bot-icon"><i class="fas fa-female"></i></div>
-          <h3>Echo</h3>
-          <p>A friendly guide who will help you navigate meaningful connections with empathy and insight.</p>
-        </div>
-        
-        <div class="bot-card male" onclick="selectGender('male')">
-          <div class="bot-icon"><i class="fas fa-male"></i></div>
-          <h3>Ace</h3>
-          <p>A straightforward companion who helps you cut through the noise and find quality matches.</p>
-        </div>
-        
-        <!-- Adding Early Access button directly in HTML for reliability -->
-        <button class="glow-btn" onclick="openModal()" style="margin-top: 30px;">Get Early Access</button>
-      </div>
-      
-      <!-- Footer with Social Links -->
-      <div class="footer">
-        <div class="social-links">
-          <a href="https://instagram.com/FairPlayDate" target="_blank" class="social-link">
-            <i class="fab fa-instagram"></i>
-          </a>
-          <a href="https://tiktok.com/@FairPlayDate" target="_blank" class="social-link">
-            <i class="fab fa-tiktok"></i>
-          </a>
-          <a href="https://twitter.com/FairPlayDate" target="_blank" class="social-link">
-            <i class="fab fa-twitter"></i>
-          </a>
-        </div>
-        <div class="contact-info">
-          <a href="mailto:hello@fairplaydate.com">hello@fairplaydate.com</a>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Ace Chat Screen -->
-    <div id="ace-chat" class="screen">
-      <div class="header">
-        <button class="back-button" onclick="showScreen('welcome-screen')">
-          <i class="fas fa-arrow-left"></i> Back
-        </button>
-        <div class="logo">Ace</div>
-      </div>
-      
-      <div class="chat-container">
-        <div class="chat-message bot">
-          Hey there! I'm Ace, your dating coach. I'm here to help you find quality connections. What qualities are most important to you in a match?
-        </div>
-      </div>
-      
-      <div class="chat-input">
-        <input type="text" placeholder="Type your message..." onkeypress="if(event.key === 'Enter') sendMessage('ace')">
-        <button onclick="sendMessage('ace')"><i class="fas fa-paper-plane"></i></button>
-      </div>
-      
-      <!-- Footer with Social Links -->
-      <div class="footer">
-        <div class="social-links">
-          <a href="https://instagram.com/FairPlayDate" target="_blank" class="social-link">
-            <i class="fab fa-instagram"></i>
-          </a>
-          <a href="https://tiktok.com/@FairPlayDate" target="_blank" class="social-link">
-            <i class="fab fa-tiktok"></i>
-          </a>
-          <a href="https://twitter.com/FairPlayDate" target="_blank" class="social-link">
-            <i class="fab fa-twitter"></i>
-          </a>
-        </div>
-        <div class="contact-info">
-          <a href="mailto:hello@fairplaydate.com">hello@fairplaydate.com</a>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Home Screen -->
-    <div id="home-screen" class="screen">
-      <div class="header">
-        <div class="logo">FairPlay</div>
-      </div>
-      
-      <h2>Today's Matches</h2>
-      
-      <div class="date-card">
-        <img src="https://via.placeholder.com/400x320" alt="Alex">
-        <div class="date-card-content">
-          <h3>Alex, 28</h3>
-          <p>Passionate photographer who loves hiking and exploring new restaurants.</p>
-          
-          <div class="date-tags">
-            <span class="date-tag">Hiking</span>
-            <span class="date-tag">Photography</span>
-            <span class="date-tag">Foodie</span>
-          </div>
-          
-          <div class="action-buttons">
-            <div class="action-button skip"><i class="fas fa-times"></i></div>
-            <div class="action-button like"><i class="fas fa-heart"></i></div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="date-card">
-        <img src="https://via.placeholder.com/400x320" alt="Jordan">
-        <div class="date-card-content">
-          <h3>Jordan, 31</h3>
-          <p>Software engineer by day, amateur chef by night. Dog lover and yoga enthusiast.</p>
-          
-          <div class="date-tags">
-            <span class="date-tag">Cooking</span>
-            <span class="date-tag">Dogs</span>
-            <span class="date-tag">Yoga</span>
-          </div>
-          
-          <div class="action-buttons">
-            <div class="action-button skip"><i class="fas fa-times"></i></div>
-            <div class="action-button like"><i class="fas fa-heart"></i></div>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Footer with Social Links -->
-      <div class="footer">
-        <div class="social-links">
-          <a href="https://instagram.com/FairPlayDate" target="_blank" class="social-link">
-            <i class="fab fa-instagram"></i>
-          </a>
-          <a href="https://tiktok.com/@FairPlayDate" target="_blank" class="social-link">
-            <i class="fab fa-tiktok"></i>
-          </a>
-          <a href="https://twitter.com/FairPlayDate" target="_blank" class="social-link">
-            <i class="fab fa-twitter"></i>
-          </a>
-        </div>
-        <div class="contact-info">
-          <a href="mailto:hello@fairplaydate.com">hello@fairplaydate.com</a>
-        </div>
-      </div>
-      
-      <!-- Tab Bar -->
-      <div class="tab-bar">
-        <div class="tab active" onclick="showTab('home')">
-          <div class="tab-icon"><i class="fas fa-home"></i></div>
-          <div>Home</div>
-        </div>
-        <div class="tab" onclick="showTab('planning')">
-          <div class="tab-icon"><i class="fas fa-calendar"></i></div>
-          <div>Plan</div>
-        </div>
-        <div class="tab" onclick="showTab('tokens')">
-          <div class="tab-icon"><i class="fas fa-coins"></i></div>
-          <div>Tokens</div>
-        </div>
-        <div class="tab" onclick="showTab('profile')">
-          <div class="tab-icon"><i class="fas fa-user"></i></div>
-          <div>Profile</div>
-        </div>
-      </div>
-    </div></a>
-          <a href="https://twitter.com/FairPlayDate" target="_blank" class="social-link">
-            <i class="fab fa-twitter"></i>
-          </a>
-        </div>
-        <div class="contact-info">
-          <a href="mailto:hello@fairplaydate.com">hello@fairplaydate.com</a>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Echo Chat Screen -->
-    <div id="echo-chat" class="screen">
-      <div class="header">
-        <button class="back-button" onclick="showScreen('welcome-screen')">
-          <i class="fas fa-arrow-left"></i> Back
-        </button>
-        <div class="logo">Echo</div>
-      </div>
-      
-      <div class="chat-container">
-        <div class="chat-message bot">
-          Hi there! I'm Echo, your dating assistant. I'm here to help you find meaningful connections. What are you looking for in a partner?
-        </div>
-      </div>
-      
-      <div class="chat-input">
-        <input type="text" placeholder="Type your message..." onkeypress="if(event.key === 'Enter') sendMessage('echo')">
-        <button onclick="sendMessage('echo')"><i class="fas fa-paper-plane"></i></button>
-      </div>
-      
-      <!-- Footer with Social Links -->
-      <div class="footer">
-        <div class="social-links">
-          <a href="https://instagram.com/FairPlayDate" target="_blank" class="social-link">
-            <i class="fab fa-instagram"></i>
-          </a>
-          <a href="https://tiktok.com/@FairPlayDate" target="_blank" class="social-link">
-            <i class="fab fa-tiktok"></i>
+      box-shadow: 
